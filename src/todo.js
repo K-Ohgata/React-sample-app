@@ -1,13 +1,12 @@
 import React, { Component, useState } from 'react';
 
 const TodoList = () => {
-  let [todoItem, setTodo] = useState({id:'',todo:''})
   let [todoList, setTodoList] = useState([])
+  let [todoItem, setTodo] = useState({id:0,todo:''})
 
   const deleteTodo=(id)=>{
     console.log(id)
-    console.log(todoList)
-    setTodoList(todoList.splice(id-1,1))
+    setTodoList(todoList.filter((todo)=>todo.id!==id))
   }
   
   const showtodo = todoList.map((val, id) => {
@@ -15,8 +14,6 @@ const TodoList = () => {
       <ul>
         <li key={val.id}>
           {val.todo}
-          {/* <button>削除</button> */}
-
           <button onClick={(id)=>deleteTodo(val.id)}>削除</button>
         </li>
       </ul>
@@ -24,16 +21,20 @@ const TodoList = () => {
   })
 
   const newTodo=(e)=>{
-    setTodo({id:todoList.length+1,todo:e.target.value})
+    setTodo({...todoItem,todo:e.target.value})
   }
   const addTodo=()=>{
+    setTodo({...todoItem,id:todoList.length+1})
     setTodoList([...todoList,todoItem])
+    const box=document.getElementById('box')
+    box.value=''
   }
 
 return (
   <div>
     <h1>Todo List</h1>
-    <input onChange={(e)=>newTodo(e)}></input>
+    <input id="box" onChange={(e)=>newTodo(e)}></input>
+    {console.log(todoItem)}
     <button onClick={addTodo}>追加</button>
     {console.log(todoList)}
     <div>{showtodo}</div>

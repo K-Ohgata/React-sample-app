@@ -26,8 +26,8 @@ const TodoList = () => {
   const addTodo=()=>{
     setTodo({...todoItem,id:todoList.length+1})
     setTodoList([...todoList,todoItem])
-    const box=document.getElementById('box')
-    box.value=''
+    // const box=document.getElementById('box')
+    // box.value=''
   }
 
 return (
